@@ -1,0 +1,46 @@
+apply plugin: "groovy"
+apply plugin: "spring-boot"
+apply plugin: "application"
+apply plugin: "eclipse"
+apply plugin: "idea"
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+version = "${version}"
+group = "${group}"
+mainClassName = "sample.SampleApplication"
+
+buildscript {
+    ext {
+        springBootVersion = '1.1.4.RELEASE'
+    }    
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+jar {
+    baseName = 'dynamic-datasources'
+    version =  '1.0.0'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-jdbc"
+    runtime "com.h2database:h2:1.4.181"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
